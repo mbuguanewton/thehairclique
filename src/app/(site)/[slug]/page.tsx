@@ -1,0 +1,58 @@
+import { client } from "@/sanity/lib/client";
+import BlockRenderer from "@/components/BlockRenderer";
+import { notFound } from "next/navigation";
+import { Metadata } from "next";
+import { urlForImage } from "@/sanity/lib/image";
+
+interface PageProps {
+  params: Promise<{ slug: string }>;
+}
+
+async function getPage(slug: string) {
+  const query = `*[_type == "page" && slug.current == $slug][0]{
+    ...,
+    ogImage {
+      asset->
+    }
+  }`;
+  return await client.fetch(query, { slug });
+}
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const page = await getPage(slug);
+
+  if (!page) return {};
+
+  const title = page.seoTitle || page.title;
+  const description = page.seoDescription;
+  const ogImageUrl = page.ogImage ? urlForImage(page.ogImage).url() : undefined;
+
+  return {
+    title: `${title} | The Hair Clique`,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: ogImageUrl ? [{ url: ogImageUrl }] : [],
+    },
+  };
+}
+
+export default async function DynamicPage({ params }: PageProps) {
+  const { slug } = await params;
+  console.log("slug", slug);
+  const pageData = await getPage(slug);
+
+  if (!pageData) {
+    notFound();
+  }
+
+  return (
+    <main>
+      <BlockRenderer blocks={pageData.blocks} />
+    </main>
+  );
+}
