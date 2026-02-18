@@ -1,6 +1,8 @@
 import Image from "next/image";
-import { urlForImage } from "@/sanity/lib/image";
+import Heading from "@/components/ui/Heading";
+import Text from "@/components/ui/Text";
 import { cn } from "@/lib/utils";
+import { urlForImage } from "@/sanity/lib/image";
 
 interface ShowcaseItem {
   title?: string;
@@ -15,20 +17,11 @@ interface ShowcaseBlockProps {
 
 export default function ShowcaseBlock({ title, items }: ShowcaseBlockProps) {
   return (
-    <section className="py-32 px-6 bg-background">
-      <div className="max-w-7xl mx-auto space-y-24">
+    <section className="py-20 px-6 bg-background">
+      <div className="max-w-7xl mx-auto space-y-16">
         {title && (
           <div className="space-y-4 text-center">
-            <h2 className="text-4xl md:text-6xl font-extralight text-foreground tracking-tighter">
-              {title.split(" ").map((word, i) => (
-                <span
-                  key={word}
-                  className={cn(i === 0 ? "italic font-serif text-accent" : "")}
-                >
-                  {word}{" "}
-                </span>
-              ))}
-            </h2>
+            <Heading type="h2">{title}</Heading>
             <div className="w-24 h-px bg-accent/30 mx-auto" />
           </div>
         )}
@@ -36,23 +29,25 @@ export default function ShowcaseBlock({ title, items }: ShowcaseBlockProps) {
           {items?.map((item, index) => (
             <div
               key={index}
-              className="group relative aspect-square overflow-hidden rounded-4xl bg-card border border-border"
+              className="group relative aspect-square overflow-hidden rounded-xl bg-card border border-border"
             >
               {item.image && (
                 <Image
                   src={urlForImage(item.image).url()}
                   alt={item.title || "Showcase Image"}
                   fill
-                  className="object-cover transition-transform duration-1000 group-hover:scale-110 opacity-80 group-hover:opacity-100"
+                  className="object-cover transition-transform duration-1000 group-hover:scale-110 opacity-90 group-hover:opacity-100"
                 />
               )}
-              <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
-              <div className="absolute bottom-0 left-0 p-10 space-y-2">
-                <h3 className="text-xl font-light text-foreground translate-y-2 group-hover:translate-y-0 transition-transform duration-500 tracking-tight">
+
+              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+              <div className="absolute bottom-0 left-0 p-10 space-y-2 z-10">
+                <h3 className="text-xl font-light text-white translate-y-4 group-hover:translate-y-0 transition-transform duration-500 tracking-tight">
                   {item.title}
                 </h3>
                 {item.description && (
-                  <p className="text-xs text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-500 line-clamp-2 uppercase tracking-widest font-light">
+                  <p className="text-xs text-white/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500 line-clamp-2 uppercase tracking-widest font-light">
                     {item.description}
                   </p>
                 )}

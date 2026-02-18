@@ -17,11 +17,24 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "The Hair Clique | Premium Hair Dressing for Kids",
-  description:
-    "Professional hair dressing services for kids, home calls and studio appointments available.",
-};
+import { getSettings } from "@/sanity/lib/settings";
+import { urlForImage } from "@/sanity/lib/image";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSettings();
+
+  return {
+    title: settings?.title || "The Hair Clique | Premium Hair Sanctuary",
+    description:
+      settings?.description ||
+      "Professional hair dressing services for wigs and styling.",
+    openGraph: {
+      images: settings?.ogImage
+        ? [{ url: urlForImage(settings.ogImage).url() }]
+        : [],
+    },
+  };
+}
 
 export default function RootLayout({
   children,
@@ -33,9 +46,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* <Navbar /> */}
+        <Navbar />
         <div className="min-h-screen">{children}</div>
-        {/* <Footer /> */}
+        <Footer />
       </body>
     </html>
   );

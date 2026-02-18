@@ -1,10 +1,13 @@
+import Heading from "@/components/ui/Heading";
+import Text from "@/components/ui/Text";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { urlForImage } from "@/sanity/lib/image";
-import { cn } from "@/lib/utils";
+import CustomPortableText from "@/components/CustomPortableText";
 
 interface ServiceItem {
   name?: string;
-  description?: string;
+  description?: any;
   price?: string;
   image?: any;
 }
@@ -16,58 +19,52 @@ interface ServicesBlockProps {
 
 export default function ServicesBlock({ title, items }: ServicesBlockProps) {
   return (
-    <section className="py-32 px-6 bg-background">
-      <div className="max-w-7xl mx-auto space-y-24">
+    <section className="py-20 px-6 bg-background">
+      <div className="max-w-7xl mx-auto space-y-16">
         {title && (
           <div className="space-y-4 text-center">
-            <h2 className="text-4xl md:text-6xl font-extralight text-foreground tracking-tighter">
-              {title.split(" ").map((word, i) => (
-                <span
-                  key={word}
-                  className={cn(i === 0 ? "italic font-serif text-accent" : "")}
-                >
-                  {word}{" "}
-                </span>
-              ))}
-            </h2>
+            <Heading type="h2">{title}</Heading>
             <div className="w-24 h-px bg-accent/30 mx-auto" />
           </div>
         )}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {items?.map((item, index) => (
             <div
               key={index}
-              className="flex flex-col bg-card border border-border rounded-4xl overflow-hidden hover:border-accent/40 shadow-sm transition-all duration-500 group"
+              className="group relative aspect-4/5 overflow-hidden rounded-2xl bg-card border border-border shadow-sm transition-all duration-500 hover:border-accent/40"
             >
               {item.image && (
-                <div className="relative aspect-4/3 overflow-hidden">
-                  <Image
-                    src={urlForImage(item.image).url()}
-                    alt={item.name || "Service"}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100"
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-card via-transparent to-transparent opacity-40" />
-                </div>
+                <Image
+                  src={urlForImage(item.image).url()}
+                  alt={item.name || "Service"}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                />
               )}
-              <div className="p-10 space-y-6">
-                <div className="flex justify-between items-start gap-4">
-                  <h3 className="text-2xl font-light text-foreground tracking-tight">
+
+              {/* Service Name Badge */}
+              <div className="absolute top-6 left-6">
+                <div className="bg-white px-6 py-2 rounded-full shadow-lg">
+                  <span className="text-sm font-medium text-black tracking-wide">
                     {item.name}
-                  </h3>
-                  {item.price && (
-                    <span className="text-xl font-serif italic text-accent whitespace-nowrap">
-                      {item.price}
-                    </span>
-                  )}
+                  </span>
                 </div>
-                {item.description && (
-                  <p className="text-muted-foreground font-light leading-relaxed text-sm tracking-wide">
-                    {item.description}
-                  </p>
-                )}
-                <div className="pt-4">
-                  <div className="w-8 h-px bg-accent group-hover:w-full transition-all duration-500" />
+              </div>
+
+              {/* Hover Info (Description/Price) - subtle overlay */}
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8 backdrop-blur-[2px]">
+                <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500 space-y-4 max-h-full overflow-y-auto custom-scrollbar">
+                  {item.price && (
+                    <p className="text-white font-serif italic text-xl">
+                      {item.price}
+                    </p>
+                  )}
+                  {item.description && (
+                    <CustomPortableText
+                      value={item.description}
+                      className="text-white/90 text-sm font-light leading-snug prose-invert"
+                    />
+                  )}
                 </div>
               </div>
             </div>

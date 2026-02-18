@@ -26,8 +26,9 @@ export default defineType({
             }),
             defineField({
               name: "description",
-              type: "text",
+              type: "array",
               title: "Description",
+              of: [{ type: "block" }],
             }),
             defineField({
               name: "price",

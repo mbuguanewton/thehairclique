@@ -3,6 +3,9 @@ import { visionTool } from "@sanity/vision";
 import { structureTool } from "sanity/structure";
 import { schemaTypes } from "./src/sanity/schema";
 import { unsplashImageAsset } from "sanity-plugin-asset-source-unsplash";
+import { table } from "@sanity/table";
+
+import { structure } from "./src/sanity/structure";
 
 export default defineConfig({
   name: "thehairclique",
@@ -13,7 +16,14 @@ export default defineConfig({
 
   basePath: "/studio",
 
-  plugins: [structureTool(), unsplashImageAsset(), visionTool()],
+  plugins: [
+    structureTool({
+      structure,
+    }),
+    unsplashImageAsset(),
+    visionTool(),
+    table(),
+  ],
 
   schema: {
     types: schemaTypes,

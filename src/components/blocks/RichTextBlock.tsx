@@ -1,4 +1,4 @@
-import { PortableText } from "@portabletext/react";
+import CustomPortableText from "@/components/CustomPortableText";
 
 interface RichTextBlockProps {
   content?: any;
@@ -6,9 +6,9 @@ interface RichTextBlockProps {
 
 export default function RichTextBlock({ content }: RichTextBlockProps) {
   return (
-    <section className="py-20 px-6 bg-zinc-950 text-zinc-300">
-      <div className="max-w-3xl mx-auto prose prose-invert prose-zinc prose-lg">
-        <PortableText value={content} />
+    <section className="py-20 px-6 bg-zinc-950">
+      <div className="max-w-3xl mx-auto">
+        <CustomPortableText value={content} />
       </div>
     </section>
   );

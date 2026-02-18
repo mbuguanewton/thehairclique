@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-**The Hair Clique** is a professional hair dressing service specifically designed for kids. The platform offers premium styling services with options for both studio appointments and home-based calls.
+**The Hair Clique** is a premium hair sanctuary specializing in high-end wig promotion and styling. The platform also offers professional hair dressing services for kids as a secondary bespoke offering, providing both studio and home-based services.
 
 ## Tech Stack
 
