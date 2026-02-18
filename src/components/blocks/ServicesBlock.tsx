@@ -45,9 +45,12 @@ export default function ServicesBlock({ title, items }: ServicesBlockProps) {
               {/* Service Name Badge */}
               <div className="absolute top-6 left-6">
                 <div className="bg-white px-6 py-2 rounded-full shadow-lg">
-                  <span className="text-sm font-medium text-black tracking-wide">
+                  <Text
+                    as="span"
+                    className="text-sm font-medium text-black tracking-wide"
+                  >
                     {item.name}
-                  </span>
+                  </Text>
                 </div>
               </div>
 
@@ -55,9 +58,12 @@ export default function ServicesBlock({ title, items }: ServicesBlockProps) {
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8 backdrop-blur-[2px]">
                 <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500 space-y-4 max-h-full overflow-y-auto custom-scrollbar">
                   {item.price && (
-                    <p className="text-white font-serif italic text-xl">
+                    <Text
+                      as="p"
+                      className="text-white font-serif italic text-xl"
+                    >
                       {item.price}
-                    </p>
+                    </Text>
                   )}
                   {item.description && (
                     <CustomPortableText

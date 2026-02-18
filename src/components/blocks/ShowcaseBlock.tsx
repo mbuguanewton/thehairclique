@@ -43,13 +43,16 @@ export default function ShowcaseBlock({ title, items }: ShowcaseBlockProps) {
               <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
               <div className="absolute bottom-0 left-0 p-10 space-y-2 z-10">
-                <h3 className="text-xl font-light text-white translate-y-4 group-hover:translate-y-0 transition-transform duration-500 tracking-tight">
+                <Heading
+                  type="h3"
+                  className="text-xl font-light text-white translate-y-4 group-hover:translate-y-0 transition-transform duration-500 tracking-tight"
+                >
                   {item.title}
-                </h3>
+                </Heading>
                 {item.description && (
-                  <p className="text-xs text-white/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500 line-clamp-2 uppercase tracking-widest font-light">
+                  <Text className="text-xs text-white/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500 line-clamp-2 uppercase tracking-widest font-light">
                     {item.description}
-                  </p>
+                  </Text>
                 )}
               </div>
             </div>
