@@ -6,6 +6,7 @@ import FeaturesBlock from "./blocks/FeaturesBlock";
 import ImageWithTextBlock from "./blocks/ImageWithTextBlock";
 import BlogListBlock from "./blocks/BlogListBlock";
 import SimpleHeroBlock from "./blocks/SimpleHeroBlock";
+import BookingBlock from "./blocks/BookingBlock";
 
 interface Block {
   _type: string;
@@ -26,6 +27,7 @@ const blockMap: Record<string, any> = {
   imageWithText: ImageWithTextBlock,
   blogList: BlogListBlock,
   simpleHero: SimpleHeroBlock,
+  bookingBlock: BookingBlock,
 };
 
 export default function BlockRenderer({ blocks }: BlockRendererProps) {

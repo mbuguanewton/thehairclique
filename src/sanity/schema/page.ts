@@ -46,6 +46,7 @@ export default defineType({
         { type: "imageWithText" },
         { type: "blogList" },
         { type: "simpleHero" },
+        { type: "bookingBlock" },
       ],
     }),
     defineField({

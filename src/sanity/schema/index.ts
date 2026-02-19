@@ -14,6 +14,10 @@ import siteSettings from "./siteSettings";
 import blogList from "./blocks/blogList";
 import simpleHero from "./blocks/simpleHero";
 
+import booking from "./booking";
+import availability from "./availability";
+import bookingBlock from "./blocks/bookingBlock";
+
 export const schemaTypes: SchemaTypeDefinition[] = [
   page,
   post,
@@ -26,4 +30,7 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   imageWithText,
   blogList,
   simpleHero,
+  booking,
+  availability,
+  bookingBlock,
 ];

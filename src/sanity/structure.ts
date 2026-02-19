@@ -1,5 +1,5 @@
 import type { StructureResolver } from "sanity/structure";
-import { Layout, FileText, Cog } from "lucide-react";
+import { Layout, FileText, Cog, Clock, Calendar } from "lucide-react";
 
 export const structure: StructureResolver = (S) =>
   S.list()
@@ -49,9 +49,38 @@ export const structure: StructureResolver = (S) =>
             ]),
         ),
 
+      S.divider(),
+      // Singleton: Availability Settings
+      S.listItem()
+        .title("Availability Settings")
+        .icon(Clock)
+        .child(
+          S.document()
+            .schemaType("availability")
+            .documentId("availabilitySettings"),
+        ),
+
+      // List: Bookings
+      S.listItem()
+        .title("Bookings")
+        .icon(Calendar)
+        .child(
+          S.documentList()
+            .title("All Bookings")
+            .filter('_type == "booking"')
+            .defaultOrdering([{ field: "date", direction: "desc" }]),
+        ),
+
       // List out all other document types that aren't specifically handled above
       ...S.documentTypeListItems().filter(
         (listItem) =>
-          !["page", "post", "siteSettings"].includes(listItem.getId() || ""),
+          ![
+            "page",
+            "post",
+            "siteSettings",
+            "availability",
+            "booking",
+            "bookingBlock",
+          ].includes(listItem.getId() || ""),
       ),
     ]);

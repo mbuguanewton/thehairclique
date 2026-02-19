@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import { cn } from "@/lib/utils";
-import { Search } from "lucide-react";
+import { Search, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface Blog {
   _id: string;
@@ -33,6 +33,8 @@ const CATEGORIES = [
   { id: "productivity", label: "Productivity", emoji: "📚" },
 ];
 
+const POSTS_PER_PAGE = 10;
+
 export default function BlogListClient({
   blogs,
   title,
@@ -41,6 +43,12 @@ export default function BlogListClient({
 }: BlogListClientProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Reset to first page when search or category changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, activeCategory]);
 
   const filteredBlogs = useMemo(() => {
     let filtered = blogs;
@@ -62,6 +70,13 @@ export default function BlogListClient({
 
     return filtered;
   }, [blogs, searchQuery, activeCategory]);
+
+  // Pagination calculations
+  const totalPages = Math.ceil(filteredBlogs.length / POSTS_PER_PAGE);
+  const currentBlogs = useMemo(() => {
+    const start = (currentPage - 1) * POSTS_PER_PAGE;
+    return filteredBlogs.slice(start, start + POSTS_PER_PAGE);
+  }, [filteredBlogs, currentPage]);
 
   return (
     <div className="space-y-16">
@@ -112,8 +127,8 @@ export default function BlogListClient({
             : "grid-cols-1 gap-16 max-w-4xl", // Targeted narrow width for list layout
         )}
       >
-        {filteredBlogs.length > 0 ? (
-          filteredBlogs.map((blog, index) => (
+        {currentBlogs.length > 0 ? (
+          currentBlogs.map((blog, index) => (
             <div key={blog._id} className="w-full">
               <Link
                 href={`/blog/${blog.slug.current}`}
@@ -171,7 +186,7 @@ export default function BlogListClient({
                   </div>
                 </div>
               </Link>
-              {layout === "list" && index < filteredBlogs.length - 1 && (
+              {layout === "list" && index < currentBlogs.length - 1 && (
                 <div className="mt-16 border-b border-dashed border-border/40" />
               )}
             </div>
@@ -200,6 +215,46 @@ export default function BlogListClient({
           </div>
         )}
       </div>
+
+      {/* Pagination Controls */}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-center gap-4 pt-12 border-t border-border/40">
+          <button
+            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+            disabled={currentPage === 1}
+            className="p-3 rounded-xl border border-border/60 text-muted-foreground hover:border-accent hover:text-accent disabled:opacity-30 disabled:pointer-events-none transition-all"
+            aria-label="Previous page"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+
+          <div className="flex items-center gap-2">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button
+                key={page}
+                onClick={() => setCurrentPage(page)}
+                className={cn(
+                  "w-12 h-12 rounded-xl text-sm font-bold transition-all",
+                  currentPage === page
+                    ? "bg-primary text-primary-foreground shadow-lg"
+                    : "text-muted-foreground hover:bg-accent/10 hover:text-accent",
+                )}
+              >
+                {page}
+              </button>
+            ))}
+          </div>
+
+          <button
+            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+            disabled={currentPage === totalPages}
+            className="p-3 rounded-xl border border-border/60 text-muted-foreground hover:border-accent hover:text-accent disabled:opacity-30 disabled:pointer-events-none transition-all"
+            aria-label="Next page"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+        </div>
+      )}
     </div>
   );
 }

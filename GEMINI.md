@@ -49,9 +49,12 @@ The project uses a block-based architecture and a dedicated blog system:
   - `Page`: Dynamic pages built with blocks.
   - `Post`: Individual blog stories with categories and read time calculation.
   - `Site Settings`: Global configuration for the site.
+  - `Booking`: Stores customer session requests.
+  - `Availability`: Singleton for managing working hours and blocked dates.
 - **Blocks:**
   - `HeroBlock`: Main landing section with CTA.
   - `SimpleHeroBlock`: Minimalist hero for secondary pages.
+  - `BookingBlock`: Interactive booking interface with calendar.
   - `ServicesBlock`: Displays available hair services.
   - `FeaturesBlock`: Highlights key selling points.
   - `ImageWithTextBlock`: Side-by-side content layouts.
