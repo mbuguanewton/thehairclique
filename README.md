@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# The Hair Clique
 
-## Getting Started
+**The Hair Clique** is a premium hair sanctuary specializing in high-end wig promotion and styling. The platform also offers professional hair dressing services for kids as a secondary bespoke offering, providing both studio and home-based services.
 
-First, run the development server:
+## Tech Stack
+
+- **Framework:** Next.js 16 (App Router)
+- **Styling:** Tailwind CSS 4, CSS Variables, Shadcn UI
+- **CMS:** Sanity CMS (Headless) with Table Support
+- **Icons:** Lucide React
+- **Language:** TypeScript
+- **Package Manager:** pnpm
+
+## Development Workflow
+
+### Prerequisites
+
+Make sure you have Node.js and `pnpm` installed.
+
+### Getting Started
+
+Install dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
+```
+
+Start the development server:
+
+```bash
 pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Content Management (Sanity Studio)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The Sanity Studio is embedded within the project and accessible at `/studio`. It uses a customized structure for better content management.
 
-## Learn More
+To deploy or manage Sanity directly via CLI:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+pnpm sanity <command>
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Build and Lint
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+To build the project for production:
 
-## Deploy on Vercel
+```bash
+pnpm build
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+To run linting:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+pnpm lint
+```
+
+## Architecture
+
+- `src/app/(site)`: Main customer-facing application routes, including `/blog/[slug]` for stories.
+- `src/app/(studio)`: Sanity Studio configuration for content management.
+- `src/components/ui`: Reusable UI components. Core typography components (`Heading`, `Text`).
+- `src/components/blocks`: Dynamic page sections rendered from Sanity content.
+- `src/sanity`: Sanity content schemas and clients.
