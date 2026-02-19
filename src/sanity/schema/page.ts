@@ -47,6 +47,7 @@ export default defineType({
         { type: "blogList" },
         { type: "simpleHero" },
         { type: "bookingBlock" },
+        { type: "featureBlock" },
       ],
     }),
     defineField({
@@ -80,12 +81,7 @@ export default defineType({
     defineField({
       name: "body",
       title: "Body",
-      type: "array",
-      of: [
-        { type: "block" },
-        { type: "image", options: { hotspot: true } },
-        { type: "table" },
-      ],
+      type: "blockContent",
       hidden: ({ document }) => document?.category !== "blog",
     }),
     defineField({

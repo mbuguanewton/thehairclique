@@ -47,17 +47,7 @@ export default defineType({
     defineField({
       name: "body",
       title: "Body",
-      type: "array",
-      of: [
-        {
-          type: "block",
-        },
-        {
-          type: "image",
-          options: { hotspot: true },
-        },
-        { type: "table" },
-      ],
+      type: "blockContent",
     }),
   ],
 });

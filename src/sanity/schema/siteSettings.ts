@@ -12,11 +12,41 @@ export default defineType({
       group: "branding",
     }),
     defineField({
-      name: "logo",
-      title: "Logo",
-      type: "image",
-      options: { hotspot: true },
+      name: "logoConfig",
+      title: "Logo Configuration",
+      type: "object",
       group: "branding",
+      fields: [
+        {
+          name: "fontSize",
+          title: "Font Size",
+          type: "string",
+          initialValue: "3xl",
+          options: {
+            list: [
+              { title: "2XL", value: "2xl" },
+              { title: "3XL", value: "3xl" },
+              { title: "4XL", value: "4xl" },
+              { title: "5XL", value: "5xl" },
+              { title: "6XL", value: "6xl" },
+            ],
+          },
+        },
+        {
+          name: "color",
+          title: "Logo Color",
+          type: "string",
+          initialValue: "accent",
+          options: {
+            list: [
+              { title: "Accent", value: "accent" },
+              { title: "Primary", value: "primary" },
+              { title: "White", value: "white" },
+              { title: "Neutral", value: "neutral-800" },
+            ],
+          },
+        },
+      ],
     }),
     defineField({
       name: "title",
@@ -94,6 +124,7 @@ export default defineType({
                 ],
               },
             },
+            { name: "label", title: "Display Label", type: "string", description: "Optional: Override the platform name" },
             { name: "url", type: "string" },
           ],
         },

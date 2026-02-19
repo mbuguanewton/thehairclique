@@ -59,5 +59,20 @@ export default defineType({
       type: "number",
       initialValue: 60,
     }),
+    defineField({
+      name: "consultationTypes",
+      title: "Consultation Types",
+      type: "array",
+      of: [{ type: "string" }],
+      initialValue: ["Virtual Consultation", "In-Studio Consultation"],
+    }),
   ],
+  preview: {
+    prepare() {
+      return {
+        title: "Availability Settings",
+        subtitle: "Manage working hours and blocked dates",
+      };
+    },
+  },
 });

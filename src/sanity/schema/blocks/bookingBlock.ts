@@ -12,17 +12,17 @@ export default defineType({
       initialValue: "Book Your Sanctuary Session",
     }),
     defineField({
+      name: "anchorId",
+      title: "Anchor ID",
+      type: "string",
+      description: "Used for anchor links (e.g., 'services'). Do not include the #.",
+    }),
+    defineField({
       name: "description",
       title: "Description",
       type: "text",
       initialValue:
         "Select a date and time that works for you. Our team will confirm your session shortly.",
-    }),
-    defineField({
-      name: "image",
-      title: "Image",
-      type: "image",
-      options: { hotspot: true },
     }),
     defineField({
       name: "isPromo",

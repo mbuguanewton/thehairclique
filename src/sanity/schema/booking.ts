@@ -40,6 +40,11 @@ export default defineType({
       type: "string",
     }),
     defineField({
+      name: "consultationType",
+      title: "Consultation Type",
+      type: "string",
+    }),
+    defineField({
       name: "status",
       title: "Status",
       type: "string",

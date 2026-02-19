@@ -12,11 +12,16 @@ interface FeatureItem {
 interface FeaturesBlockProps {
   title?: string;
   items?: FeatureItem[];
+  anchorId?: string;
 }
 
-export default function FeaturesBlock({ title, items }: FeaturesBlockProps) {
+export default function FeaturesBlock({
+  title,
+  items,
+  anchorId,
+}: FeaturesBlockProps) {
   return (
-    <section className="py-20 px-6 bg-background">
+    <section id={anchorId} className="py-20 px-6 bg-background">
       <div className="max-w-7xl mx-auto space-y-16">
         {title && (
           <div className="space-y-4 text-center">

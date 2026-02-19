@@ -19,6 +19,12 @@ export default defineType({
       type: "string",
     }),
     defineField({
+      name: "anchorId",
+      title: "Anchor ID",
+      type: "string",
+      description: "Used for anchor links (e.g., 'services'). Do not include the #.",
+    }),
+    defineField({
       name: "description",
       title: "Description",
       type: "text",

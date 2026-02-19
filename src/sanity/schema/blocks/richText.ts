@@ -8,8 +8,13 @@ export default defineType({
     defineField({
       name: "content",
       title: "Content",
-      type: "array",
-      of: [{ type: "block" }, { type: "table" }],
+      type: "blockContent",
+    }),
+    defineField({
+      name: "anchorId",
+      title: "Anchor ID",
+      type: "string",
+      description: "Used for anchor links (e.g., 'services'). Do not include the #.",
     }),
   ],
 });

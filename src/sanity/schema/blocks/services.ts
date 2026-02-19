@@ -11,6 +11,12 @@ export default defineType({
       type: "string",
     }),
     defineField({
+      name: "anchorId",
+      title: "Anchor ID",
+      type: "string",
+      description: "Used for anchor links (e.g., 'services'). Do not include the #.",
+    }),
+    defineField({
       name: "items",
       title: "Service Items",
       type: "array",
@@ -26,9 +32,8 @@ export default defineType({
             }),
             defineField({
               name: "description",
-              type: "array",
               title: "Description",
-              of: [{ type: "block" }],
+              type: "blockContent",
             }),
             defineField({
               name: "price",

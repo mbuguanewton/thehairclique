@@ -7,6 +7,7 @@ interface SimpleHeroBlockProps {
   heading?: string;
   description?: string;
   theme?: "mint" | "teal" | "white";
+  anchorId?: string;
 }
 
 export default function SimpleHeroBlock({
@@ -14,6 +15,7 @@ export default function SimpleHeroBlock({
   heading,
   description,
   theme = "mint",
+  anchorId,
 }: SimpleHeroBlockProps) {
   const themes = {
     mint: "bg-background text-foreground",
@@ -25,6 +27,7 @@ export default function SimpleHeroBlock({
 
   return (
     <section
+      id={anchorId}
       className={cn(
         "relative py-32 px-6 overflow-hidden flex flex-col items-center justify-center text-center",
         themes[theme],

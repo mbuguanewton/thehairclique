@@ -5,8 +5,8 @@ import { cn } from "@/lib/utils";
 const headingVariants = cva("font-sans tracking-tight", {
   variants: {
     type: {
-      h1: "text-3xl md:text-5xl font-extralight tracking-tighter",
-      h2: "text-2xl md:text-4xl font-extralight tracking-tighter",
+      h1: "text-4xl md:text-6xl font-extralight tracking-tighter",
+      h2: "text-3xl md:text-5xl font-extralight tracking-tighter",
       h3: "text-xl md:text-3xl font-extralight tracking-tighter",
       h4: "text-xl font-semibold tracking-tight",
       h5: "text-lg font-medium",

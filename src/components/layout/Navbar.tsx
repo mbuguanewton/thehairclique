@@ -1,8 +1,7 @@
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 import { getSettings } from "@/sanity/lib/settings";
-import Image from "next/image";
-import { urlForImage } from "@/sanity/lib/image";
+import LogoComponent from "@/components/layout/Logo";
+import MobileNav from "./MobileNav";
 
 export default async function Navbar() {
   const settings = await getSettings();
@@ -14,8 +13,7 @@ export default async function Navbar() {
     { label: "Blog", href: "/blog" },
   ];
 
-  const siteName = settings?.siteName || "The Hair Clique";
-  const logo = settings?.logo;
+  const logoConfig = settings?.logoConfig;
 
   // Split links for the center logo layout
   const midPoint = Math.ceil(navLinks.length / 2);
@@ -41,31 +39,10 @@ export default async function Navbar() {
           href="/"
           className="flex-none flex items-center gap-4 text-2xl font-extralight text-primary-foreground group"
         >
-          {logo ? (
-            <div className="relative w-12 h-12">
-              <Image
-                src={urlForImage(logo).url()}
-                alt={siteName}
-                fill
-                className="object-contain"
-              />
-            </div>
-          ) : (
-            <p>
-              {siteName.split(" ").map((word: string, i: number) => (
-                <span
-                  key={i}
-                  className={cn(
-                    i === 1
-                      ? "italic font-serif text-accent group-hover:text-primary-foreground transition-colors"
-                      : "",
-                  )}
-                >
-                  {word}{" "}
-                </span>
-              ))}
-            </p>
-          )}
+          <LogoComponent 
+            size={logoConfig?.fontSize} 
+            color={logoConfig?.color} 
+          />
         </Link>
 
         <div className="flex-1 hidden md:flex items-center justify-end gap-8">
@@ -80,14 +57,7 @@ export default async function Navbar() {
           ))}
         </div>
 
-        {/* Mobile Menu Placeholder */}
-        <div className="md:hidden">
-          <button className="text-primary-foreground">
-            <span className="sr-only">Menu</span>
-            <div className="w-6 h-px bg-current mb-1.5" />
-            <div className="w-6 h-px bg-current" />
-          </button>
-        </div>
+        <MobileNav navLinks={navLinks} logoConfig={logoConfig} />
       </div>
     </nav>
   );

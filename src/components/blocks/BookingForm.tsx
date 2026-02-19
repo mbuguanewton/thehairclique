@@ -1,15 +1,12 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import { format, addDays, startOfToday, isBefore, isSameDay } from "date-fns";
+import { format, startOfToday, isBefore, isSameDay } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
 import {
-  Calendar as CalendarIcon,
-  Clock,
   CheckCircle2,
   Loader2,
-  MapPin,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
@@ -49,8 +46,19 @@ export default function BookingForm({
     lastName: "",
     email: "",
     phone: "",
+    consultationType: "",
     notes: "",
   });
+
+  // Set default consultation type if available
+  useEffect(() => {
+    if (availability?.consultationTypes?.length > 0 && !formData.consultationType) {
+      setFormData((prev) => ({
+        ...prev,
+        consultationType: availability.consultationTypes[0],
+      }));
+    }
+  }, [availability]);
 
   // Fetch bookings for the selected date
   useEffect(() => {
@@ -78,20 +86,29 @@ export default function BookingForm({
       (h: any) => h.day === dayName,
     );
 
-    if (dayConfig?.isClosed) return [];
+    // If day is not defined in CMS OR is explicitly closed, it's CLOSED
+    if (!dayConfig || dayConfig.isClosed) return [];
 
-    const openTime = dayConfig?.open || "09:00";
-    const closeTime = dayConfig?.close || "17:00";
+    const openTime =
+      dayConfig?.open || availability?.workingHours?.[0]?.open || "09:00";
+    const closeTime =
+      dayConfig?.close || availability?.workingHours?.[0]?.close || "18:00";
     const duration = availability?.slotDuration || 60;
 
     const availableSlots = [];
     let current = new Date(`2000-01-01T${openTime}`);
     const end = new Date(`2000-01-01T${closeTime}`);
 
+    const isToday = isSameDay(date, new Date());
+    const currentTimeStr = format(new Date(), "HH:mm");
+
     while (current < end) {
       const slotTime = format(current, "HH:mm");
       if (!existingBookings.includes(slotTime)) {
-        availableSlots.push(slotTime);
+        // Only add slot if it's not today OR if it's in the future
+        if (!isToday || slotTime > currentTimeStr) {
+          availableSlots.push(slotTime);
+        }
       }
       current = new Date(current.getTime() + duration * 60000);
     }
@@ -121,6 +138,7 @@ export default function BookingForm({
           customerName: `${formData.firstName} ${formData.lastName}`.trim(),
           email: formData.email,
           phone: formData.phone,
+          consultationType: formData.consultationType,
           date: format(date, "yyyy-MM-dd"),
           slot: selectedSlot,
           notes: formData.notes,
@@ -142,7 +160,7 @@ export default function BookingForm({
 
   if (step === "success") {
     return (
-      <div className="max-w-xl mx-auto text-center py-20 space-y-8 bg-white p-12 rounded-3xl shadow-xl border border-accent/10">
+      <div className="max-w-xl mx-auto text-center py-12 md:py-20 space-y-8 bg-white p-6 md:p-12 rounded-app shadow-xl border border-accent/10">
         <div className="w-20 h-20 bg-accent/10 rounded-full flex items-center justify-center mx-auto">
           <CheckCircle2 className="w-10 h-10 text-accent" />
         </div>
@@ -165,6 +183,7 @@ export default function BookingForm({
               lastName: "",
               email: "",
               phone: "",
+              consultationType: "",
               notes: "",
             });
           }}
@@ -186,8 +205,8 @@ export default function BookingForm({
     <div className="max-w-7xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
         {/* Column 1: Info & Image */}
-        <div className="lg:col-span-3 space-y-10">
-          <div className="space-y-6">
+        <div className="lg:col-span-3 space-y-6 md:space-y-10">
+          <div className="space-y-4 md:space-y-6">
             <div className="inline-block px-4 py-1.5 bg-accent/10 border border-accent/20 rounded-full backdrop-blur-sm">
               <Text
                 as="span"
@@ -206,7 +225,7 @@ export default function BookingForm({
           </div>
 
           {image && (
-            <div className="relative aspect-[4/5] w-full rounded-[2.5rem] overflow-hidden shadow-2xl ring-1 ring-black/5">
+            <div className="relative aspect-[4/5] w-full rounded-app overflow-hidden shadow-2xl ring-1 ring-black/5">
               <Image
                 src={urlForImage(image).url()}
                 alt={title || "Booking Illustration"}
@@ -219,47 +238,29 @@ export default function BookingForm({
         </div>
 
         {/* Column 2: Calendar & Working Hours */}
-        <div className="lg:col-span-5 bg-white/50 backdrop-blur-sm rounded-[2.5rem] p-10 shadow-lg border border-white/40 space-y-10">
+        <div className="lg:col-span-5 bg-white/50 backdrop-blur-sm rounded-app p-6 md:p-10 shadow-lg border border-white/40 space-y-10">
           <div className="space-y-8">
-            <div className="flex justify-center p-2 rounded-[2.5rem]">
+            <div className="flex justify-center p-2 rounded-app">
               <Calendar
                 mode="single"
                 selected={date}
                 onSelect={setDate}
-                disabled={(date) =>
-                  isBefore(date, startOfToday()) ||
-                  availability?.blockedDates?.some((d: string) =>
-                    isSameDay(new Date(d), date),
-                  )
-                }
-                className="w-full p-8 shadow-inner"
-                classNames={{
-                  root: "w-full",
-                  months: "w-full",
-                  month: "w-full space-y-8",
-                  nav: "flex items-center justify-between w-full mb-4",
-                  button_previous:
-                    "text-foreground/50 hover:text-accent transition-colors p-2",
-                  button_next:
-                    "text-foreground/50 hover:text-accent transition-colors p-2",
-                  month_caption: "flex justify-center items-center",
-                  caption_label:
-                    "text-2xl font-light tracking-tight text-foreground px-4",
-                  table: "w-full border-collapse",
-                  head_row: "flex w-full mb-6",
-                  head_cell:
-                    "text-muted-foreground/50 flex-1 font-medium text-xs text-center",
-                  week: "flex w-full mt-4 justify-between",
-                  day: cn(
-                    "flex-1 aspect-square p-0 font-medium aria-selected:opacity-100 rounded-lg hover:bg-accent/5 transition-all duration-300 flex items-center justify-center text-sm w-full",
-                  ),
-                  day_selected:
-                    "bg-primary! text-white! hover:bg-primary/90! hover:text-white! focus:bg-primary! focus:text-white! shadow-lg shadow-primary/20 font-bold scale-110 z-10",
-                  day_today: "text-accent font-bold ring-2 ring-accent/20",
-                  day_outside: "text-muted-foreground/10 opacity-30",
-                  day_disabled: "text-muted-foreground/20 opacity-30",
-                  day_hidden: "invisible",
+                disabled={(date) => {
+                  const dayName = format(date, "EEEE");
+                  const dayConfig = availability?.workingHours?.find(
+                    (h: any) => h.day === dayName,
+                  );
+                  const isClosed = !dayConfig || dayConfig.isClosed;
+                  return (
+                    isBefore(date, startOfToday()) ||
+                    isClosed ||
+                    availability?.blockedDates?.some((d: string) =>
+                      isSameDay(new Date(d), date),
+                    )
+                  );
                 }}
+                className="w-full p-2 md:p-8"
+                captionLayout="dropdown"
                 components={{
                   Chevron: ({ orientation }) => {
                     if (orientation === "left")
@@ -281,12 +282,12 @@ export default function BookingForm({
               <div className="space-y-3">
                 <div className="flex items-center justify-between pb-3 border-b border-black/5">
                   <span className="text-muted-foreground font-medium">
-                    Working Days
+                    Hours for {date ? format(date, "EEEE") : "Selected Day"}
                   </span>
                   <span className="font-bold">
-                    {currentDayWorkingHours?.isClosed
+                    {!currentDayWorkingHours || currentDayWorkingHours.isClosed
                       ? "Closed"
-                      : `${currentDayWorkingHours?.open || "9AM"} - ${currentDayWorkingHours?.close || "9PM"}`}
+                      : `${currentDayWorkingHours.open || availability?.workingHours?.[0]?.open || "09:00"} - ${currentDayWorkingHours.close || availability?.workingHours?.[0]?.close || "18:00"}`}
                   </span>
                 </div>
               </div>
@@ -298,33 +299,65 @@ export default function BookingForm({
                 Available Slots
               </Text>
               <div className="grid grid-cols-4 gap-3">
-                {slots.slice(0, 8).map((slot) => (
-                  <button
-                    key={slot}
-                    onClick={() => setSelectedSlot(slot)}
-                    className={cn(
-                      "py-2 px-3 rounded-lg text-xs font-bold transition-all border",
-                      selectedSlot === slot
-                        ? "bg-accent border-accent text-white shadow-md"
-                        : "bg-white border-black/5 hover:border-accent text-foreground",
-                    )}
-                  >
-                    {slot}
-                  </button>
-                ))}
+                {slots.length > 0 ? (
+                  slots.slice(0, 8).map((slot) => (
+                    <button
+                      key={slot}
+                      onClick={() => setSelectedSlot(slot)}
+                      className={cn(
+                        "py-2 px-3 rounded-lg text-xs font-bold transition-all border",
+                        selectedSlot === slot
+                          ? "bg-accent border-accent text-white shadow-md"
+                          : "bg-white border-black/5 hover:border-accent text-foreground",
+                      )}
+                    >
+                      {slot}
+                    </button>
+                  ))
+                ) : (
+                  <div className="col-span-4 py-4 px-4 bg-accent/5 rounded-xl border border-accent/10 border-dashed text-center">
+                    <Text variant="muted" className="text-xs font-medium">
+                      No slots available for this day.
+                    </Text>
+                  </div>
+                )}
               </div>
             </div>
           </div>
         </div>
 
         {/* Column 3: Contact Form */}
-        <div className="lg:col-span-4 bg-[#2D2D2D] rounded-[2.5rem] p-12 text-white shadow-2xl relative overflow-hidden">
-          <div className="relative z-10 space-y-12">
+        <div className="lg:col-span-4 bg-[#2D2D2D] rounded-app p-6 md:p-12 text-white shadow-2xl relative overflow-hidden">
+          <div className="relative z-10 space-y-8 md:space-y-12">
             <Heading type="h2" className="text-3xl text-white leading-tight">
               We will call you
             </Heading>
 
             <form onSubmit={handleSubmit} className="space-y-8">
+              {availability?.consultationTypes?.length > 0 && (
+                <div className="space-y-1 border-b border-white/10 pb-2">
+                  <label className="text-xs text-white/40 uppercase tracking-widest font-bold">
+                    Consultation Type
+                  </label>
+                  <select
+                    value={formData.consultationType}
+                    onChange={(e) =>
+                      setFormData({ ...formData, consultationType: e.target.value })
+                    }
+                    className="w-full bg-transparent border-none focus:ring-0 text-lg p-0 text-white appearance-none cursor-pointer"
+                  >
+                    <option value="" disabled className="bg-[#2D2D2D]">
+                      Select consultation type
+                    </option>
+                    {availability.consultationTypes.map((type: string) => (
+                      <option key={type} value={type} className="bg-[#2D2D2D]">
+                        {type}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+
               <div className="space-y-1 border-b border-white/10 pb-2">
                 <label className="text-xs text-white/40 uppercase tracking-widest font-bold">
                   First Name
@@ -411,3 +444,4 @@ export default function BookingForm({
     </div>
   );
 }
+

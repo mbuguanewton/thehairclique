@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
-import { cn } from "@/lib/utils";
 import { urlForImage } from "@/sanity/lib/image";
+import FadeIn from "@/components/animations/FadeIn";
 
 interface ShowcaseItem {
   title?: string;
@@ -13,23 +13,30 @@ interface ShowcaseItem {
 interface ShowcaseBlockProps {
   title?: string;
   items?: ShowcaseItem[];
+  anchorId?: string;
 }
 
-export default function ShowcaseBlock({ title, items }: ShowcaseBlockProps) {
+export default function ShowcaseBlock({
+  title,
+  items,
+  anchorId,
+}: ShowcaseBlockProps) {
   return (
-    <section className="py-20 px-6 bg-background">
+    <section id={anchorId} className="py-20 px-6 bg-background">
       <div className="max-w-7xl mx-auto space-y-16">
         {title && (
-          <div className="space-y-4 text-center">
+          <div className="space-y-4 text-left">
             <Heading type="h2">{title}</Heading>
-            <div className="w-24 h-px bg-accent/30 mx-auto" />
+            <div className="w-24 h-px bg-accent/30" />
           </div>
         )}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {items?.map((item, index) => (
-            <div
+            <FadeIn
               key={index}
-              className="group relative aspect-square overflow-hidden rounded-xl bg-card border border-border"
+              direction="up"
+              delay={index * 0.1}
+              className="group relative aspect-square overflow-hidden rounded-app bg-card border border-border"
             >
               {item.image && (
                 <Image
@@ -55,7 +62,7 @@ export default function ShowcaseBlock({ title, items }: ShowcaseBlockProps) {
                   </Text>
                 )}
               </div>
-            </div>
+            </FadeIn>
           ))}
         </div>
       </div>

@@ -4,7 +4,16 @@ import { writeClient } from "@/sanity/lib/write-client";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { customerName, email, phone, date, slot, service, notes } = body;
+    const {
+      customerName,
+      email,
+      phone,
+      date,
+      slot,
+      service,
+      consultationType,
+      notes,
+    } = body;
 
     if (!customerName || !email || !date || !slot) {
       return NextResponse.json(
@@ -22,6 +31,7 @@ export async function POST(request: Request) {
       date,
       slot,
       service,
+      consultationType,
       notes,
       status: "pending",
     });

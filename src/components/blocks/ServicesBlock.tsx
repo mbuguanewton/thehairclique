@@ -1,9 +1,10 @@
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
-import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { urlForImage } from "@/sanity/lib/image";
 import CustomPortableText from "@/components/CustomPortableText";
+
+import FadeIn from "@/components/animations/FadeIn";
 
 interface ServiceItem {
   name?: string;
@@ -15,23 +16,30 @@ interface ServiceItem {
 interface ServicesBlockProps {
   title?: string;
   items?: ServiceItem[];
+  anchorId?: string;
 }
 
-export default function ServicesBlock({ title, items }: ServicesBlockProps) {
+export default function ServicesBlock({
+  title,
+  items,
+  anchorId,
+}: ServicesBlockProps) {
   return (
-    <section className="py-20 px-6 bg-background">
+    <section id={anchorId} className="py-20 px-6 bg-background">
       <div className="max-w-7xl mx-auto space-y-16">
         {title && (
-          <div className="space-y-4 text-center">
+          <div className="space-y-4 text-left">
             <Heading type="h2">{title}</Heading>
-            <div className="w-24 h-px bg-accent/30 mx-auto" />
+            <div className="w-24 h-px bg-accent/30" />
           </div>
         )}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {items?.map((item, index) => (
-            <div
+            <FadeIn
               key={index}
-              className="group relative aspect-4/5 overflow-hidden rounded-2xl bg-card border border-border shadow-sm transition-all duration-500 hover:border-accent/40"
+              direction="up"
+              delay={index * 0.1}
+              className="group relative aspect-4/5 overflow-hidden rounded-app bg-card border border-border shadow-sm transition-all duration-500 hover:border-accent/40"
             >
               {item.image && (
                 <Image
@@ -73,7 +81,7 @@ export default function ServicesBlock({ title, items }: ServicesBlockProps) {
                   )}
                 </div>
               </div>
-            </div>
+            </FadeIn>
           ))}
         </div>
       </div>

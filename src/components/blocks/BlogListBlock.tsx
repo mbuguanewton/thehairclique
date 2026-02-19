@@ -6,6 +6,7 @@ interface BlogListBlockProps {
   description?: string;
   layout?: "grid" | "list";
   limit?: number;
+  anchorId?: string;
 }
 
 export default async function BlogListBlock({
@@ -13,6 +14,7 @@ export default async function BlogListBlock({
   description,
   layout = "grid",
   limit,
+  anchorId,
 }: BlogListBlockProps) {
   const query = `*[_type == "page" && category == "blog"] | order(_createdAt desc) ${
     limit ? `[0...${limit}]` : ""
@@ -30,7 +32,7 @@ export default async function BlogListBlock({
   const blogs = await client.fetch(query);
 
   return (
-    <section className="py-20 px-6 bg-background">
+    <section id={anchorId} className="py-20 px-6 bg-background">
       <div className="max-w-7xl mx-auto">
         <BlogListClient
           blogs={blogs}

@@ -1,5 +1,6 @@
 import { type SchemaTypeDefinition } from "sanity";
 import page from "./page";
+import blockContent from "./blockContent";
 import hero from "./blocks/hero";
 import richText from "./blocks/richText";
 import showcase from "./blocks/showcase";
@@ -13,6 +14,7 @@ import siteSettings from "./siteSettings";
 
 import blogList from "./blocks/blogList";
 import simpleHero from "./blocks/simpleHero";
+import featureBlock from "./blocks/featureBlock";
 
 import booking from "./booking";
 import availability from "./availability";
@@ -20,6 +22,7 @@ import bookingBlock from "./blocks/bookingBlock";
 
 export const schemaTypes: SchemaTypeDefinition[] = [
   page,
+  blockContent,
   post,
   siteSettings,
   hero,
@@ -33,4 +36,5 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   booking,
   availability,
   bookingBlock,
+  featureBlock,
 ];

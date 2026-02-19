@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+
+const script = localFont({
+  src: "../../../public/fonnts.com-BrittanySignature.ttf",
+  variable: "--font-script",
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,6 +42,8 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+import SmoothScroll from "@/components/layout/SmoothScroll";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -44,8 +52,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${script.variable} antialiased`}
       >
+        <SmoothScroll />
         <Navbar />
         <div className="min-h-screen">{children}</div>
         <Footer />
