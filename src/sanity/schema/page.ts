@@ -48,6 +48,7 @@ export default defineType({
         { type: "simpleHero" },
         { type: "bookingBlock" },
         { type: "featureBlock" },
+        { type: "policyBlock" },
       ],
     }),
     defineField({

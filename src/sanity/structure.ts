@@ -46,6 +46,16 @@ export const structure: StructureResolver = (S) =>
                     .filter('_type == "page" && category == "blog"')
                     .defaultOrdering([{ field: "title", direction: "asc" }]),
                 ),
+
+              S.divider(),
+
+              S.listItem()
+                .title("Legal")
+                .child(
+                  S.documentList()
+                    .title("Legal")
+                    .filter('_type == "page" && category == "legal"'),
+                ),
             ]),
         ),
 
