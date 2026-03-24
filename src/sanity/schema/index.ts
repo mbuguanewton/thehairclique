@@ -19,6 +19,7 @@ import featureBlock from "./blocks/featureBlock";
 import booking from "./booking";
 import availability from "./availability";
 import bookingBlock from "./blocks/bookingBlock";
+import policyBlock from "./blocks/policyBlock";
 
 export const schemaTypes: SchemaTypeDefinition[] = [
   page,
@@ -37,4 +38,5 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   availability,
   bookingBlock,
   featureBlock,
+  policyBlock,
 ];

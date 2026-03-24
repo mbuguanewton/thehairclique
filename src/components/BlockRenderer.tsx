@@ -8,6 +8,7 @@ import BlogListBlock from "./blocks/BlogListBlock";
 import SimpleHeroBlock from "./blocks/SimpleHeroBlock";
 import BookingBlock from "./blocks/BookingBlock";
 import FeatureBlock from "./blocks/FeatureBlock";
+import PolicyBlock from "@/components/blocks/PolicyBlock";
 
 interface Block {
   _type: string;
@@ -30,6 +31,7 @@ const blockMap: Record<string, any> = {
   simpleHero: SimpleHeroBlock,
   bookingBlock: BookingBlock,
   featureBlock: FeatureBlock,
+  policyBlock: PolicyBlock,
 };
 
 export default function BlockRenderer({ blocks }: BlockRendererProps) {
