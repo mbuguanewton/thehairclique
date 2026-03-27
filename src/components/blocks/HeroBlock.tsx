@@ -8,11 +8,13 @@ import { urlForImage } from "@/sanity/lib/image";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import FadeIn from "@/components/animations/FadeIn";
+import { cn } from "@/lib/utils";
 
 interface HeroBlockProps {
   heading?: string;
   subheading?: string;
   backgroundImage?: any;
+  secondaryImages?: any[];
   ctaText?: string;
   ctaLink?: string;
   anchorId?: string;
@@ -22,6 +24,7 @@ export default function HeroBlock({
   heading,
   subheading,
   backgroundImage,
+  secondaryImages,
   ctaText,
   ctaLink,
   anchorId,
@@ -83,35 +86,57 @@ export default function HeroBlock({
           )}
         </div>
 
-        {/* Right: Featured Image with Accents */}
+        {/* Right: Featured Image with Surrounding Collage */}
         <FadeIn direction="left" delay={0.2} className="relative group lg:block hidden">
-          {backgroundImage && (
-            <div className="relative aspect-4/5 w-full max-w-md mx-auto rounded-app overflow-hidden border-12 border-white/5 shadow-2xl">
-              <Image
-                src={urlForImage(backgroundImage).url()}
-                alt={heading || "Hero Image"}
-                fill
-                className="object-cover transition-transform duration-1000 group-hover:scale-110"
-                priority
-              />
-              {/* <div className="absolute inset-0 bg-linear-to-t from-primary/40 to-transparent" /> */}
-            </div>
-          )}
+          <div className="relative w-full max-w-md mx-auto aspect-4/5">
+            {/* Main Image */}
+            {backgroundImage && (
+              <div className="relative z-10 w-full h-full rounded-app overflow-hidden border-8 border-white/5 shadow-2xl">
+                <Image
+                  src={urlForImage(backgroundImage).url()}
+                  alt={heading || "Hero Image"}
+                  fill
+                  className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                  priority
+                />
+              </div>
+            )}
 
-          {/* Floating Accent Card */}
-          <motion.div
-            initial={{ opacity: 0, x: 20, rotate: -15 }}
-            animate={{ opacity: 1, x: 0, rotate: -6 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-            className="absolute -bottom-10 -left-10 bg-accent text-white p-8 rounded-app shadow-2xl max-w-50 space-y-2 transform transition-transform duration-700 group-hover:rotate-0"
-          >
-            <p className="text-[10px] uppercase tracking-[0.3em] opacity-80">
-              Sanctuary
-            </p>
-            <p className="text-lg font-serif italic leading-tight">
-              Elite Styling Experience
-            </p>
-          </motion.div>
+            {/* Secondary Images (Collage) */}
+            {secondaryImages && secondaryImages.length > 0 && (
+              <div className="absolute inset-0 z-20 pointer-events-none">
+                {secondaryImages.map((img, i) => {
+                  // Position styles for surrounding effect
+                  const positions = [
+                    "absolute -top-12 -left-12 w-32 h-32 rotate-[-12deg]",
+                    "absolute -bottom-8 -right-12 w-36 h-36 rotate-[8deg]",
+                    "absolute top-20 -right-16 w-28 h-28 rotate-[15deg]",
+                    "absolute -bottom-16 left-8 w-24 h-24 rotate-[-10deg]",
+                  ];
+                  
+                  return (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      transition={{ delay: 0.4 + i * 0.15, duration: 0.8 }}
+                      className={cn(
+                        "rounded-app overflow-hidden border-4 border-white shadow-xl ring-1 ring-black/5",
+                        positions[i % positions.length]
+                      )}
+                    >
+                      <Image
+                        src={urlForImage(img).url()}
+                        alt={`Collage Image ${i + 1}`}
+                        fill
+                        className="object-cover"
+                      />
+                    </motion.div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
 
           {/* Animated decorative element */}
           <div className="absolute -top-12 -left-12 w-32 h-32 rounded-full border border-white/10 flex items-center justify-center animate-spin-slow">
