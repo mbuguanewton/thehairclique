@@ -10,6 +10,8 @@ import BookingBlock from "./blocks/BookingBlock";
 import FeatureBlock from "./blocks/FeatureBlock";
 import PolicyBlock from "@/components/blocks/PolicyBlock";
 
+import ContactBlock from "./blocks/ContactBlock";
+
 interface Block {
   _type: string;
   _key: string;
@@ -30,6 +32,7 @@ const blockMap: Record<string, any> = {
   blogList: BlogListBlock,
   simpleHero: SimpleHeroBlock,
   bookingBlock: BookingBlock,
+  contactBlock: ContactBlock,
   featureBlock: FeatureBlock,
   policyBlock: PolicyBlock,
 };
