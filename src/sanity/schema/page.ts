@@ -47,6 +47,7 @@ export default defineType({
         { type: "blogList" },
         { type: "simpleHero" },
         { type: "bookingBlock" },
+        { type: "contactBlock" },
         { type: "featureBlock" },
         { type: "policyBlock" },
       ],

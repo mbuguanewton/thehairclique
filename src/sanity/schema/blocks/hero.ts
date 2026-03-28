@@ -23,11 +23,19 @@ export default defineType({
     }),
     defineField({
       name: "backgroundImage",
-      title: "Background Image",
+      title: "Main Image",
       type: "image",
       options: {
         hotspot: true,
       },
+    }),
+    defineField({
+      name: "secondaryImages",
+      title: "Secondary Images (Collage)",
+      type: "array",
+      of: [{ type: "image", options: { hotspot: true } }],
+      description: "Small images that will surround the main hero image.",
+      validation: (Rule) => Rule.max(4),
     }),
     defineField({
       name: "ctaText",
