@@ -56,7 +56,7 @@ export default function RootLayout({
       >
         <SmoothScroll />
         <Navbar />
-        <div className="min-h-screen">{children}</div>
+        <div className="min-h-screen pt-24">{children}</div>
         <Footer />
       </body>
     </html>
