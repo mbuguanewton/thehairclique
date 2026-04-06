@@ -5,7 +5,8 @@ import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Mail, Phone, Send } from "lucide-react";
+import { Mail, Phone, Send, Calendar, Info, Quote } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface ContactBlockProps {
   title?: string;
@@ -82,10 +83,16 @@ export default function ContactBlock({
                   <Mail className="size-5" />
                 </div>
                 <div>
-                  <Text variant="muted" className="text-sm font-medium uppercase tracking-wider">
+                  <Text
+                    variant="muted"
+                    className="text-sm font-medium uppercase tracking-wider"
+                  >
                     Email Us
                   </Text>
-                  <a href={`mailto:${email}`} className="text-lg hover:text-primary transition-colors">
+                  <a
+                    href={`mailto:${email}`}
+                    className="text-lg hover:text-primary transition-colors"
+                  >
                     {email}
                   </a>
                 </div>
@@ -96,10 +103,16 @@ export default function ContactBlock({
                   <Phone className="size-5" />
                 </div>
                 <div>
-                  <Text variant="muted" className="text-sm font-medium uppercase tracking-wider">
+                  <Text
+                    variant="muted"
+                    className="text-sm font-medium uppercase tracking-wider"
+                  >
                     Call Us
                   </Text>
-                  <a href={`tel:${phone.replace(/\s+/g, "")}`} className="text-lg hover:text-accent transition-colors">
+                  <a
+                    href={`tel:${phone.replace(/\s+/g, "")}`}
+                    className="text-lg hover:text-accent transition-colors"
+                  >
                     {phone}
                   </a>
                 </div>
@@ -109,13 +122,14 @@ export default function ContactBlock({
 
           {/* Newsletter / Join Section */}
           {showNewsletter && (
-            <div className="bg-white p-8 md:p-12 rounded-3xl border border-border shadow-sm">
+            <div className="bg-white p-8 md:p-12 rounded-xl border border-border shadow-sm">
               {!isSubmitted ? (
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="space-y-2">
                     <Heading type="h4">Join the Clique</Heading>
                     <Text variant="muted">
-                      Stay updated with our latest stories, styling tips, and sanctuary updates.
+                      Stay updated with our latest stories, styling tips, and
+                      sanctuary updates.
                     </Text>
                   </div>
                   <div className="flex flex-col sm:flex-row gap-3">
@@ -128,7 +142,12 @@ export default function ContactBlock({
                       onChange={(e) => setInputValue(e.target.value)}
                       className="flex-1 h-12"
                     />
-                    <Button type="submit" size="lg" className="h-12 px-8" disabled={isLoading}>
+                    <Button
+                      type="submit"
+                      size="lg"
+                      className="h-12 px-8"
+                      disabled={isLoading}
+                    >
                       {isLoading ? "Joining..." : newsletterButtonText}
                       <Send className="ml-2 size-4" />
                     </Button>
@@ -144,9 +163,10 @@ export default function ContactBlock({
                   <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Send className="size-8" />
                   </div>
-                  <Heading type="h4">You're in!</Heading>
+                  <Heading type="h4">You&apos;re in!</Heading>
                   <Text variant="muted">
-                    Thank you for joining. We'll be in touch soon with some magic.
+                    Thank you for joining. We&apos;ll be in touch soon with some
+                    magic.
                   </Text>
                   <Button variant="ghost" onClick={() => setIsSubmitted(false)}>
                     Join with another email
@@ -155,6 +175,72 @@ export default function ContactBlock({
               )}
             </div>
           )}
+        </div>
+
+        {/* Consultation Information */}
+        <div
+          className={cn(
+            "pt-12 border-t border-border/50",
+            showNewsletter ? "mt-20" : "mt-16",
+          )}
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            <div className="space-y-8">
+              <div className="space-y-4">
+                <Heading
+                  type="h4"
+                  className="text-primary uppercase tracking-widest text-xs font-bold"
+                >
+                  Consultations / wig fittings / trials
+                </Heading>
+                <div className="space-y-1">
+                  <Text className="text-xl font-extralight tracking-tighter">
+                    Mondays, Tuesdays & Saturdays
+                  </Text>
+                  <Text
+                    variant="brand-primary"
+                    className="text-xl font-extralight tracking-tight"
+                  >
+                    8am — 5pm
+                  </Text>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <div className="size-8 rounded-full bg-primary/5 flex items-center justify-center">
+                  <Calendar className="size-4 text-primary" />
+                </div>
+                <Text variant="muted" className="text-sm italic">
+                  Follow ups will be arranged after initial consultation
+                </Text>
+              </div>
+            </div>
+
+            <div className="space-y-8">
+              <div className="space-y-4">
+                <Heading
+                  type="h4"
+                  className="text-accent uppercase tracking-widest text-xs font-bold"
+                >
+                  Consultation Format
+                </Heading>
+                <div className="space-y-2">
+                  <Text className="text-lg font-extralight tracking-tighter">
+                    Virtual Consultations
+                  </Text>
+                  {/*<Text className="text-lg font-extralight tracking-tighter">
+                    Physical Consultations <br />
+                    <span className="flex items-center gap-2 p-2">
+                      <Info className="size-5 text-accent shrink-0 mt-0.5" />
+                      <blockquote className="text-sm">
+                        Arranged after initial consultation
+                      </blockquote>
+                    </span>
+                  </Text>*/}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

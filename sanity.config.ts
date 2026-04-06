@@ -4,6 +4,7 @@ import { structureTool } from "sanity/structure";
 import { schemaTypes } from "./src/sanity/schema";
 import { unsplashImageAsset } from "sanity-plugin-asset-source-unsplash";
 import { table } from "@sanity/table";
+import { media } from "sanity-plugin-media";
 
 import { structure } from "./src/sanity/structure";
 
@@ -23,6 +24,7 @@ export default defineConfig({
     unsplashImageAsset(),
     visionTool(),
     table(),
+    media(),
   ],
 
   schema: {

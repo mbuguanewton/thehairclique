@@ -29,7 +29,7 @@ export default function SimpleHeroBlock({
     <section
       id={anchorId}
       className={cn(
-        "relative py-32 px-6 overflow-hidden flex flex-col items-center justify-center text-center",
+        "relative py-20 md:py-32 px-6 overflow-hidden flex flex-col items-center justify-center text-center",
         themes[theme],
       )}
     >
@@ -43,7 +43,7 @@ export default function SimpleHeroBlock({
         />
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto space-y-8">
+      <div className="relative z-10 max-w-4xl mx-auto space-y-6 md:space-y-8">
         {badge && (
           <div
             className={cn(

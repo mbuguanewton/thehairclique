@@ -45,11 +45,6 @@ export default function BlogListClient({
   const [activeCategory, setActiveCategory] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Reset to first page when search or category changes
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [searchQuery, activeCategory]);
-
   const filteredBlogs = useMemo(() => {
     let filtered = blogs;
 
@@ -112,7 +107,10 @@ export default function BlogListClient({
               type="text"
               placeholder="Search articles..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setCurrentPage(1);
+              }}
               className="w-full pl-11 pr-4 py-3 bg-white border border-border/60 rounded-xl text-sm focus:outline-none focus:ring-0 focus:border-accent/40 shadow-xs transition-all placeholder:text-muted-foreground/40"
             />
           </div>
@@ -207,6 +205,7 @@ export default function BlogListClient({
               onClick={() => {
                 setSearchQuery("");
                 setActiveCategory("all");
+                setCurrentPage(1);
               }}
               className="px-6 py-2 bg-accent/10 text-accent rounded-full text-xs font-semibold uppercase tracking-widest hover:bg-accent hover:text-white transition-all"
             >

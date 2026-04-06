@@ -1,4 +1,4 @@
-import Image from "next/image";
+import AmbientImage from "@/components/ui/AmbientImage";
 import { urlForImage } from "@/sanity/lib/image";
 import CustomPortableText from "@/components/CustomPortableText";
 import { cn } from "@/lib/utils";
@@ -23,28 +23,31 @@ export default function ImageWithTextBlock({
   anchorId,
 }: ImageWithTextBlockProps) {
   return (
-    <section id={anchorId} className="py-12 md:py-24 px-6 bg-white overflow-hidden">
+    <section
+      id={anchorId}
+      className="py-12 md:py-24 px-6 bg-white overflow-hidden"
+    >
       <FadeIn className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <div
           className={cn(
-            "relative w-full aspect-video md:aspect-4/5 overflow-hidden border border-border shadow-2xl rounded-app mx-auto",
-            imagePosition === "right" && "md:order-last",
+            "relative w-full aspect-square md:aspect-4/5 mx-auto order-last",
+            imagePosition === "right" ? "md:order-last" : "md:order-first",
             imageSize === "sm" && "md:max-w-md",
             imageSize === "md" && "md:max-w-lg",
             imageSize === "lg" && "md:max-w-full",
           )}
         >
           {image && (
-            <Image
+            <AmbientImage
               src={urlForImage(image).url()}
-              alt={title || "Image"}
-              fill
-              className="object-cover opacity-90 hover:scale-105 transition-transform duration-1000"
+              alt={title ?? "Image"}
+              containerClassName="shadow-2xl rounded-app"
+              imageClassName="opacity-90 hover:scale-105 transition-transform duration-1000"
             />
           )}
         </div>
 
-        <div className="space-y-6 group">
+        <div className="space-y-6 group order-first">
           <div className="space-y-4">
             {title && (
               <Heading type="h2" className="leading-tight">
