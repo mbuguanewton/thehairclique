@@ -122,7 +122,7 @@ export default function ContactBlock({
 
           {/* Newsletter / Join Section */}
           {showNewsletter && (
-            <div className="bg-white p-8 md:p-12 rounded-3xl border border-border shadow-sm">
+            <div className="bg-white p-8 md:p-12 rounded-xl border border-border shadow-sm">
               {!isSubmitted ? (
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="space-y-2">
@@ -163,9 +163,9 @@ export default function ContactBlock({
                   <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Send className="size-8" />
                   </div>
-                  <Heading type="h4">You're in!</Heading>
+                  <Heading type="h4">You&apos;re in!</Heading>
                   <Text variant="muted">
-                    Thank you for joining. We'll be in touch soon with some
+                    Thank you for joining. We&apos;ll be in touch soon with some
                     magic.
                   </Text>
                   <Button variant="ghost" onClick={() => setIsSubmitted(false)}>

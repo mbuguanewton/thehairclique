@@ -4,17 +4,12 @@ import { useState, useMemo, useEffect } from "react";
 import { format, startOfToday, isBefore, isSameDay } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
-import {
-  CheckCircle2,
-  Loader2,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
+import { CheckCircle2, Loader2, ChevronLeft, ChevronRight } from "lucide-react";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import { cn } from "@/lib/utils";
 import { urlForImage } from "@/sanity/lib/image";
-import Image from "next/image";
+import AmbientImage from "@/components/ui/AmbientImage";
 
 interface BookingFormProps {
   title?: string;
@@ -52,7 +47,10 @@ export default function BookingForm({
 
   // Set default consultation type if available
   useEffect(() => {
-    if (availability?.consultationTypes?.length > 0 && !formData.consultationType) {
+    if (
+      availability?.consultationTypes?.length > 0 &&
+      !formData.consultationType
+    ) {
       setFormData((prev) => ({
         ...prev,
         consultationType: availability.consultationTypes[0],
@@ -225,12 +223,12 @@ export default function BookingForm({
           </div>
 
           {image && (
-            <div className="relative aspect-[4/5] w-full rounded-app overflow-hidden shadow-2xl ring-1 ring-black/5">
-              <Image
+            <div className="relative aspect-[4/5] w-full">
+              <AmbientImage
                 src={urlForImage(image).url()}
                 alt={title || "Booking Illustration"}
-                fill
-                className="object-cover"
+                containerClassName="rounded-app"
+                imageClassName="object-cover"
                 priority
               />
             </div>
@@ -342,7 +340,10 @@ export default function BookingForm({
                   <select
                     value={formData.consultationType}
                     onChange={(e) =>
-                      setFormData({ ...formData, consultationType: e.target.value })
+                      setFormData({
+                        ...formData,
+                        consultationType: e.target.value,
+                      })
                     }
                     className="w-full bg-transparent border-none focus:ring-0 text-lg p-0 text-white appearance-none cursor-pointer"
                   >
@@ -444,4 +445,3 @@ export default function BookingForm({
     </div>
   );
 }
-

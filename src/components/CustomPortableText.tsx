@@ -3,6 +3,8 @@ import Text from "./ui/Text";
 import { PortableText, PortableTextComponents } from "@portabletext/react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import AmbientImage from "./ui/AmbientImage";
+import { urlForImage } from "@/sanity/lib/image";
 
 const components: PortableTextComponents = {
   block: {
@@ -48,6 +50,21 @@ const components: PortableTextComponents = {
     ),
   },
   types: {
+    image: ({ value }) => {
+      if (!value?.asset) return null;
+      return (
+        <div className="my-12 flex justify-center px-4">
+          <AmbientImage
+            src={urlForImage(value).url()}
+            alt={value.alt || "Story image"}
+            fill={false}
+            width={1200}
+            height={800}
+            containerClassName="w-full max-w-4xl mx-auto"
+          />
+        </div>
+      );
+    },
     table: ({ value }) => {
       const { rows } = value;
       if (!rows || !rows.length) return null;

@@ -1,4 +1,4 @@
-import Image from "next/image";
+import AmbientImage from "@/components/ui/AmbientImage";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
 import { urlForImage } from "@/sanity/lib/image";
@@ -39,11 +39,10 @@ export default function ShowcaseBlock({
               className="group relative aspect-square overflow-hidden rounded-app bg-card border border-border"
             >
               {item.image && (
-                <Image
+                <AmbientImage
                   src={urlForImage(item.image).url()}
                   alt={item.title || "Showcase Image"}
-                  fill
-                  className="object-cover transition-transform duration-1000 group-hover:scale-110 opacity-90 group-hover:opacity-100"
+                  imageClassName="transition-transform duration-1000 group-hover:scale-110 opacity-90 group-hover:opacity-100"
                 />
               )}
 

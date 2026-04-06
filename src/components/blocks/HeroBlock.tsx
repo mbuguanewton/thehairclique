@@ -30,18 +30,21 @@ export default function HeroBlock({
   anchorId,
 }: HeroBlockProps) {
   return (
-    <section id={anchorId} className="relative md:min-h-[60vh] w-full flex flex-col items-center justify-center bg-primary text-primary-foreground selection:bg-accent/30 overflow-hidden">
+    <section
+      id={anchorId}
+      className="relative md:min-h-[60vh] w-full flex flex-col items-center justify-center bg-primary text-primary-foreground selection:bg-accent/30 overflow-hidden"
+    >
       {/* Background patterns */}
       <div className="absolute inset-0 z-0 opacity-10 pointer-events-none">
         <div className="absolute top-1/4 -right-20 w-96 h-96 bg-accent/20 rounded-full blur-[100px]" />
         <div className="absolute bottom-1/4 -left-20 w-96 h-96 bg-accent/10 rounded-full blur-[100px]" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-12 md:py-16">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-24 md:py-16">
         {/* Left: Content */}
-        <div className="space-y-6 md:space-y-8 text-left">
-          <header className="space-y-4 md:space-y-6 group">
-            <FadeIn direction="right" delay={0.1}>
+        <div className="space-y-6 md:space-y-8 text-center lg:text-left flex flex-col items-center lg:items-start">
+          <header className="space-y-4 md:space-y-6 group flex flex-col items-center lg:items-start">
+            <FadeIn direction="up" delay={0.1}>
               <div className="inline-block px-4 py-1.5 bg-accent/20 border border-accent/20 rounded-full backdrop-blur-sm">
                 <Text
                   as="span"
@@ -53,7 +56,7 @@ export default function HeroBlock({
             </FadeIn>
 
             {heading && (
-              <FadeIn direction="right" delay={0.2}>
+              <FadeIn direction="up" delay={0.2}>
                 <Heading type="hero" className="text-white">
                   {heading}
                 </Heading>
@@ -61,10 +64,10 @@ export default function HeroBlock({
             )}
 
             {subheading && (
-              <FadeIn direction="right" delay={0.3}>
+              <FadeIn direction="up" delay={0.3}>
                 <Text
                   variant="muted"
-                  className="text-primary-foreground/80 md:text-xl max-w-lg"
+                  className="text-primary-foreground/80 md:text-xl max-w-lg mx-auto lg:mx-0"
                 >
                   {subheading}
                 </Text>
@@ -87,17 +90,22 @@ export default function HeroBlock({
         </div>
 
         {/* Right: Featured Image with Surrounding Collage */}
-        <FadeIn direction="left" delay={0.2} className="relative group lg:block hidden">
-          <div className="relative w-full max-w-md mx-auto aspect-4/5">
+        <FadeIn
+          direction="left"
+          delay={0.2}
+          className="relative group lg:block hidden"
+        >
+          <div className="relative w-full max-w-md mx-auto aspect-[3/4]">
             {/* Main Image */}
             {backgroundImage && (
               <div className="relative z-10 w-full h-full rounded-app overflow-hidden border-8 border-white/5 shadow-2xl">
                 <Image
+                  fill
                   src={urlForImage(backgroundImage).url()}
                   alt={heading || "Hero Image"}
-                  fill
                   className="object-cover transition-transform duration-1000 group-hover:scale-110"
                   priority
+                  loading="eager"
                 />
               </div>
             )}
@@ -113,7 +121,7 @@ export default function HeroBlock({
                     "absolute top-20 -right-16 w-28 h-28 rotate-[15deg]",
                     "absolute -bottom-16 left-8 w-24 h-24 rotate-[-10deg]",
                   ];
-                  
+
                   return (
                     <motion.div
                       key={i}
@@ -122,7 +130,7 @@ export default function HeroBlock({
                       transition={{ delay: 0.4 + i * 0.15, duration: 0.8 }}
                       className={cn(
                         "rounded-app overflow-hidden border-4 border-white shadow-xl ring-1 ring-black/5",
-                        positions[i % positions.length]
+                        positions[i % positions.length],
                       )}
                     >
                       <Image

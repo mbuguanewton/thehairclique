@@ -1,6 +1,6 @@
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
-import Image from "next/image";
+import AmbientImage from "@/components/ui/AmbientImage";
 import { urlForImage } from "@/sanity/lib/image";
 import CustomPortableText from "@/components/CustomPortableText";
 
@@ -42,11 +42,11 @@ export default function ServicesBlock({
               className="group relative aspect-4/5 overflow-hidden rounded-app bg-card border border-border shadow-sm transition-all duration-500 hover:border-accent/40"
             >
               {item.image && (
-                <Image
+                <AmbientImage
                   src={urlForImage(item.image).url()}
                   alt={item.name || "Service"}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  containerClassName="shadow-none"
+                  imageClassName="transition-transform duration-700 group-hover:scale-110"
                 />
               )}
 

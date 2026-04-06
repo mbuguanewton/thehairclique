@@ -20,14 +20,11 @@ export default async function Footer() {
     <footer className="py-24 px-6 bg-primary border-t border-primary/20 text-primary-foreground">
       <div className="max-w-7xl mx-auto flex flex-col items-center gap-12">
         <div className="text-center space-y-8">
-          <Link
-            href="/"
-            className="text-primary-foreground block"
-          >
-            <Logo 
-              size={settings?.logoConfig?.fontSize || "5xl"} 
-              color={settings?.logoConfig?.color} 
-              className="md:text-6xl" 
+          <Link href="/" className="text-primary-foreground block">
+            <Logo
+              size={settings?.logoConfig?.fontSize || "5xl"}
+              color={settings?.logoConfig?.color}
+              className="md:text-6xl"
             />
           </Link>
           <p className="text-primary-foreground/70 font-light max-w-sm mx-auto text-sm leading-relaxed tracking-wide pt-4">
@@ -38,20 +35,20 @@ export default async function Footer() {
         <SocialLinks links={socialLinks} />
 
         <div className="pt-12 w-full border-t border-primary-foreground/10 flex flex-col md:flex-row justify-between items-center gap-6 text-[9px] uppercase tracking-[0.4em] font-light text-primary-foreground/50">
-          <p className='text-xs'>
-            &copy; {new Date().getFullYear()} {siteName}
-          </p>
-          <div className="flex gap-10">
+          <div className="flex flex-wrap justify-center gap-6 md:gap-10 order-first md:order-last">
             {footerLinks.map((link: any, i: number) => (
               <Link
                 key={i}
                 href={link.href}
-                className="hover:text-primary-foreground transition-colors text-xs"
+                className="hover:text-primary-foreground transition-colors text-xs text-center"
               >
                 {link.label}
               </Link>
             ))}
           </div>
+          <p className="text-xs order-last md:order-first">
+            &copy; {new Date().getFullYear()} {siteName}
+          </p>
         </div>
       </div>
     </footer>
