@@ -67,6 +67,7 @@ export default defineType({
               title: "Badge Tag",
               options: {
                 list: [
+                  { title: "None", value: "" },
                   { title: "Exclusive", value: "Exclusive" },
                   { title: "New", value: "New" },
                   { title: "Limited", value: "Limited" },
