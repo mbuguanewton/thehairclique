@@ -34,6 +34,7 @@ export async function generateMetadata(): Promise<Metadata> {
     description:
       settings?.description ||
       "Professional hair dressing services for wigs and styling.",
+    keywords: settings?.keywords,
     openGraph: {
       images: settings?.ogImage
         ? [{ url: urlForImage(settings.ogImage).url() }]

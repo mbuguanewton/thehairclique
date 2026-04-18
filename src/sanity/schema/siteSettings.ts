@@ -61,6 +61,13 @@ export default defineType({
       group: "seo",
     }),
     defineField({
+      name: "keywords",
+      title: "Site Keywords",
+      type: "string",
+      description: "Separate keywords with commas",
+      group: "seo",
+    }),
+    defineField({
       name: "ogImage",
       title: "Social Image",
       type: "image",
@@ -124,7 +131,12 @@ export default defineType({
                 ],
               },
             },
-            { name: "label", title: "Display Label", type: "string", description: "Optional: Override the platform name" },
+            {
+              name: "label",
+              title: "Display Label",
+              type: "string",
+              description: "Optional: Override the platform name",
+            },
             { name: "url", type: "string" },
           ],
         },

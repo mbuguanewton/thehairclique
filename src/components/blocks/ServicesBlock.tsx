@@ -8,8 +8,10 @@ import FadeIn from "@/components/animations/FadeIn";
 
 interface ServiceItem {
   name?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   description?: any;
   price?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   image?: any;
 }
 

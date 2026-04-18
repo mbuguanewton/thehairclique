@@ -13,7 +13,9 @@ import { cn } from "@/lib/utils";
 interface HeroBlockProps {
   heading?: string;
   subheading?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   backgroundImage?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   secondaryImages?: any[];
   ctaText?: string;
   ctaLink?: string;
@@ -58,7 +60,7 @@ export default function HeroBlock({
             {heading && (
               <FadeIn direction="up" delay={0.2}>
                 <Heading type="hero" className="text-white">
-                  {heading}
+                  {heading as any}
                 </Heading>
               </FadeIn>
             )}
@@ -101,7 +103,7 @@ export default function HeroBlock({
               <div className="relative z-10 w-full h-full rounded-app overflow-hidden border-8 border-white/5 shadow-2xl">
                 <Image
                   fill
-                  src={urlForImage(backgroundImage).url()}
+                  src={urlForImage(backgroundImage as any).url()}
                   alt={heading || "Hero Image"}
                   className="object-cover transition-transform duration-1000 group-hover:scale-110"
                   priority
@@ -134,7 +136,7 @@ export default function HeroBlock({
                       )}
                     >
                       <Image
-                        src={urlForImage(img).url()}
+                        src={urlForImage(img as any).url()}
                         alt={`Collage Image ${i + 1}`}
                         fill
                         className="object-cover"

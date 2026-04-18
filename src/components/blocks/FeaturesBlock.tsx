@@ -1,6 +1,5 @@
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
-import { cn } from "@/lib/utils";
 import * as Icons from "lucide-react";
 
 interface FeatureItem {
@@ -32,7 +31,10 @@ export default function FeaturesBlock({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {items?.map((item, index) => {
             const IconComponent =
-              (item.icon && (Icons as any)[item.icon]) || Icons.Sparkles;
+              (item.icon &&
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                (Icons as Record<string, any>)[item.icon]) ||
+              Icons.Sparkles;
 
             return (
               <div

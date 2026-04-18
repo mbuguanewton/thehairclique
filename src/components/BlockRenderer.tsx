@@ -1,3 +1,4 @@
+import { ElementType } from "react";
 import HeroBlock from "./blocks/HeroBlock";
 import RichTextBlock from "./blocks/RichTextBlock";
 import ShowcaseBlock from "./blocks/ShowcaseBlock";
@@ -15,6 +16,7 @@ import ContactBlock from "./blocks/ContactBlock";
 interface Block {
   _type: string;
   _key: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
 
@@ -22,6 +24,7 @@ interface BlockRendererProps {
   blocks?: Block[];
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const blockMap: Record<string, any> = {
   hero: HeroBlock,
   richText: RichTextBlock,
