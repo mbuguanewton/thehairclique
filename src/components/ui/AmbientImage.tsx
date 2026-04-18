@@ -43,9 +43,9 @@ export default function AmbientImage({
       {/* 1. The Background Filler (Blurred) */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <Image
-          src={src}
-          alt=""
           fill
+          src={src}
+          alt={`ambient_bg_${alt}`}
           className={cn(
             "object-cover saturate-150", // scale-110 prevents white edges during blur
             blurAmount,
@@ -61,11 +61,11 @@ export default function AmbientImage({
       <div className="relative z-10 w-full h-full flex items-center justify-center">
         {fill ? (
           <Image
+            fill
             src={src}
             alt={alt}
-            fill
             className={cn(
-              "object-contain",
+              "object-contain aspect-auto scale-110",
               "shadow-[0_0_40px_rgba(0,0,0,0.2)]",
               imageClassName,
             )}
