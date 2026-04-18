@@ -49,5 +49,31 @@ export default defineType({
       title: "Body",
       type: "blockContent",
     }),
+    defineField({
+      name: "seoTitle",
+      title: "SEO Title",
+      type: "string",
+      group: "seo",
+    }),
+    defineField({
+      name: "seoDescription",
+      title: "SEO Description",
+      type: "text",
+      group: "seo",
+    }),
+    defineField({
+      name: "seoKeywords",
+      title: "SEO Keywords",
+      type: "string",
+      description: "Separate keywords with commas",
+      group: "seo",
+    }),
+    defineField({
+      name: "ogImage",
+      title: "Social Image",
+      type: "image",
+      group: "seo",
+    }),
   ],
+  groups: [{ name: "seo", title: "SEO" }],
 });

@@ -1,5 +1,6 @@
 import { client } from "@/sanity/lib/client";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
 import { urlForImage } from "@/sanity/lib/image";
 import Image from "next/image";
 import AmbientImage from "@/components/ui/AmbientImage";
@@ -25,6 +26,9 @@ async function getBlog(slug: string) {
     blogCategory,
     body,
     ogImage,
+    seoTitle,
+    seoDescription,
+    seoKeywords,
     _createdAt
   }`;
   return await client.fetch(query, { slug });
@@ -41,6 +45,31 @@ async function getRelatedBlogs(currentId: string) {
     _createdAt
   }`;
   return await client.fetch(query, { currentId });
+}
+
+export async function generateMetadata({
+  params,
+}: BlogPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const blog = await getBlog(slug);
+
+  if (!blog) return {};
+
+  const title = blog.seoTitle || blog.title;
+  const description = blog.seoDescription || blog.excerpt;
+  const keywords = blog.seoKeywords;
+  const ogImageUrl = blog.ogImage ? urlForImage(blog.ogImage).url() : undefined;
+
+  return {
+    title: `${title} | The Hair Clique`,
+    description,
+    keywords,
+    openGraph: {
+      title,
+      description,
+      images: ogImageUrl ? [{ url: ogImageUrl }] : [],
+    },
+  };
 }
 
 export default async function BlogPage({ params }: BlogPageProps) {

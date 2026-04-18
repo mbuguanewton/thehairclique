@@ -101,6 +101,13 @@ export default defineType({
       group: "seo",
     }),
     defineField({
+      name: "seoKeywords",
+      title: "SEO Keywords",
+      type: "string",
+      description: "Separate keywords with commas",
+      group: "seo",
+    }),
+    defineField({
       name: "ogImage",
       title: "Social Image",
       type: "image",

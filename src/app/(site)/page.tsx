@@ -30,11 +30,13 @@ export async function generateMetadata(): Promise<Metadata> {
 
   const title = page.seoTitle || page.title;
   const description = page.seoDescription;
+  const keywords = page.seoKeywords;
   const ogImageUrl = page.ogImage ? urlForImage(page.ogImage).url() : undefined;
 
   return {
     title: `${title} | The Hair Clique`,
     description,
+    keywords,
     openGraph: {
       title,
       description,
