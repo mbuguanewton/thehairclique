@@ -32,7 +32,7 @@ export default function HeroBlock({
   return (
     <section
       id={anchorId}
-      className="relative md:min-h-[60vh] w-full flex flex-col items-center justify-center bg-primary text-primary-foreground selection:bg-accent/30 overflow-hidden"
+      className="relative md:min-h-[60vh] lg:min-h-[50vh] w-full flex flex-col items-center justify-center bg-primary text-primary-foreground selection:bg-accent/30 overflow-hidden"
     >
       {/* Background patterns */}
       <div className="absolute inset-0 z-0 opacity-10 pointer-events-none">
@@ -40,7 +40,7 @@ export default function HeroBlock({
         <div className="absolute bottom-1/4 -left-20 w-96 h-96 bg-accent/10 rounded-full blur-[100px]" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-24 md:py-16">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-24 md:py-16 lg:py-12">
         {/* Left: Content */}
         <div className="space-y-6 md:space-y-8 text-center lg:text-left flex flex-col items-center lg:items-start">
           <header className="space-y-4 md:space-y-6 group flex flex-col items-center lg:items-start">
@@ -95,7 +95,7 @@ export default function HeroBlock({
           delay={0.2}
           className="relative group lg:block hidden"
         >
-          <div className="relative w-full max-w-md mx-auto aspect-[3/4]">
+          <div className="relative w-full max-w-sm mx-auto aspect-3/4">
             {/* Main Image */}
             {backgroundImage && (
               <div className="relative z-10 w-full h-full rounded-app overflow-hidden border-8 border-white/5 shadow-2xl">
@@ -158,7 +158,7 @@ export default function HeroBlock({
       {/* Background Decorative Text */}
       <div className="absolute bottom-[-5%] right-[-5%] opacity-5 pointer-events-none select-none lg:block hidden">
         <span className="text-[30rem] font-serif italic tracking-tighter leading-none pr-10">
-          Sanctuary
+          Intension
         </span>
       </div>
     </section>

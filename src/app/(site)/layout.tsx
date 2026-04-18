@@ -30,7 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettings();
 
   return {
-    title: settings?.title || "The Hair Clique | Premium Hair Sanctuary",
+    title: settings?.title || "The Hair Clique",
     description:
       settings?.description ||
       "Professional hair dressing services for wigs and styling.",

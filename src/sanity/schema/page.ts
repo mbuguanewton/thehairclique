@@ -20,8 +20,10 @@ export default defineType({
           { title: "Legal", value: "legal" },
           { title: "Service", value: "service" },
           { title: "Blog", value: "blog" },
+          { title: "Products", value: "products" },
         ],
       },
+      initialValue: "products",
     }),
     defineField({
       name: "slug",

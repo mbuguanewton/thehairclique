@@ -9,6 +9,15 @@ async function getPage(slug: string) {
     ...,
     ogImage {
       asset->
+    },
+    blocks[]{
+      ...,
+      _type == "featureBlock" => {
+        secondaryFeatures[]{
+          ...,
+          "linkedPageSlug": linkedPage->slug.current
+        }
+      }
     }
   }`;
   return await client.fetch(query, { slug });

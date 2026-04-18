@@ -27,7 +27,7 @@ export default function ImageWithTextBlock({
       id={anchorId}
       className="py-12 md:py-24 px-6 bg-white overflow-hidden"
     >
-      <FadeIn className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <FadeIn className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
         <div
           className={cn(
             "relative w-full aspect-square md:aspect-4/5 mx-auto order-last",

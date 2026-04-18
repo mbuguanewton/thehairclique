@@ -14,7 +14,8 @@ export default defineType({
       name: "anchorId",
       title: "Anchor ID",
       type: "string",
-      description: "Used for anchor links (e.g., 'services'). Do not include the #.",
+      description:
+        "Used for anchor links (e.g., 'services'). Do not include the #.",
     }),
     defineField({
       name: "description",
@@ -49,8 +50,50 @@ export default defineType({
           type: "object",
           fields: [
             defineField({ name: "title", type: "string", title: "Title" }),
-            defineField({ name: "description", type: "text", title: "Description" }),
-            defineField({ name: "image", type: "image", title: "Image", options: { hotspot: true } }),
+            defineField({
+              name: "description",
+              type: "text",
+              title: "Description",
+            }),
+            defineField({
+              name: "image",
+              type: "image",
+              title: "Image",
+              options: { hotspot: true },
+            }),
+            defineField({
+              name: "tag",
+              type: "string",
+              title: "Badge Tag",
+              options: {
+                list: [
+                  { title: "Exclusive", value: "Exclusive" },
+                  { title: "New", value: "New" },
+                  { title: "Limited", value: "Limited" },
+                  { title: "Bestseller", value: "Bestseller" },
+                  { title: "Coming Soon", value: "Coming Soon" },
+                ],
+              },
+              initialValue: "Exclusive",
+            }),
+            defineField({
+              name: "ctaText",
+              type: "string",
+              title: "CTA Text",
+              description: "Text for the link at the bottom",
+              initialValue: "Explore Collection",
+            }),
+            defineField({
+              name: "linkedPage",
+              type: "reference",
+              to: [{ type: "page" }],
+              title: "Linked Page",
+              description:
+                "Select a page to link to. If selected, the CTA section will be visible pointing to /{slug}",
+              options: {
+                filter: 'category == "products"',
+              },
+            }),
             defineField({
               name: "gridSize",
               title: "Grid Size",

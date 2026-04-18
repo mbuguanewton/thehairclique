@@ -3,11 +3,6 @@ import BlockRenderer from "@/components/BlockRenderer";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { urlForImage } from "@/sanity/lib/image";
-import Image from "next/image";
-import Text from "@/components/ui/Text";
-import Heading from "@/components/ui/Heading";
-import CustomPortableText from "@/components/CustomPortableText";
-import { cn } from "@/lib/utils";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -18,6 +13,15 @@ async function getPage(slug: string) {
     ...,
     ogImage {
       asset->
+    },
+    blocks[]{
+      ...,
+      _type == "featureBlock" => {
+        secondaryFeatures[]{
+          ...,
+          "linkedPageSlug": linkedPage->slug.current
+        }
+      }
     }
   }`;
   return await client.fetch(query, { slug });
