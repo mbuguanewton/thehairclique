@@ -12,6 +12,7 @@ import FeatureBlock from "./blocks/FeatureBlock";
 import PolicyBlock from "@/components/blocks/PolicyBlock";
 
 import ContactBlock from "./blocks/ContactBlock";
+import TestimonialsBlock from "./blocks/TestimonialsBlock";
 
 interface Block {
   _type: string;
@@ -38,6 +39,7 @@ const blockMap: Record<string, any> = {
   contactBlock: ContactBlock,
   featureBlock: FeatureBlock,
   policyBlock: PolicyBlock,
+  testimonialsBlock: TestimonialsBlock,
 };
 
 export default function BlockRenderer({ blocks }: BlockRendererProps) {
