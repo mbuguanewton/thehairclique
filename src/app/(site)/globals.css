@@ -48,6 +48,18 @@
     --radius-4xl: calc(var(--radius) + 16px);
     --radius-app: var(--radius-xl);
     --animate-spin-slow: spin 8s linear infinite;
+    --animate-marquee: marquee 35s linear infinite;
+    --animate-marquee-reverse: marquee-reverse 35s linear infinite;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
 }
 
 :root {

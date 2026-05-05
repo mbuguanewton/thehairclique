@@ -22,6 +22,9 @@ import bookingBlock from "./blocks/bookingBlock";
 import policyBlock from "./blocks/policyBlock";
 import contactBlock from "./blocks/contactBlock";
 import subscriber from "./subscriber";
+import testimonialsBlock from "./blocks/testimonialsBlock";
+import preorderBlock from "./blocks/preorder";
+import preorder from "./preorder";
 
 export const schemaTypes: SchemaTypeDefinition[] = [
   page,
@@ -43,4 +46,7 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   featureBlock,
   policyBlock,
   subscriber,
+  testimonialsBlock,
+  preorderBlock,
+  preorder,
 ];

@@ -52,6 +52,8 @@ export default defineType({
         { type: "contactBlock" },
         { type: "featureBlock" },
         { type: "policyBlock" },
+        { type: "testimonialsBlock" },
+        { type: "preorderBlock" },
       ],
     }),
     defineField({
