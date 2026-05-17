@@ -52,6 +52,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.variable}>
+      <head>
+        <meta charSet="utf-8" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="" />
+        <link
+          rel="icon"
+          href="/thc-fav2.svg"
+          type="image/svg+xml"
+          sizes="32x32"
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${script.variable} antialiased`}
       >
