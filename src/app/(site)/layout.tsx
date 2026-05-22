@@ -59,7 +59,7 @@ export default function RootLayout({
         <meta name="theme-color" content="" />
         <link
           rel="icon"
-          href="/thc-fav2.svg"
+          href="/thc-fav.svg"
           type="image/svg+xml"
           sizes="32x32"
         />
