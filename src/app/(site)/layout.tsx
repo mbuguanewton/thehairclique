@@ -5,6 +5,11 @@ import "./globals.css";
 
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { getSettings } from "@/sanity/lib/settings";
+import { urlForImage } from "@/sanity/lib/image";
+
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -22,9 +27,6 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
-import { getSettings } from "@/sanity/lib/settings";
-import { urlForImage } from "@/sanity/lib/image";
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettings();
@@ -67,6 +69,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${script.variable} antialiased`}
       >
+        <Analytics />
+        <SpeedInsights />
         <SmoothScroll />
         <Navbar />
         <div className="min-h-screen pt-24">{children}</div>
